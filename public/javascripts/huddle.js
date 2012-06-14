@@ -61,6 +61,7 @@ function decrementCounter(imageId) {
 
 function constructResultsPage() {
   var result = generateOutput();
+  //function to sort array on keys
   var keys = allKeys(result).sort(function (a, b) {
     if (isNaN(a) && isNaN(b)) {
       return 0;
