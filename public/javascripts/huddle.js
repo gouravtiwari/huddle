@@ -65,17 +65,17 @@ function constructResultsPage() {
     if (isNaN(a) && isNaN(b)) {
       return 0;
     } else if (isNaN(a) && !isNaN(b)) {
-      return -1;
-    } else if (!isNaN(a) && isNaN(b)) {
       return 1;
+    } else if (!isNaN(a) && isNaN(b)) {
+      return -1;
     } else {
       return b - a;
     }
   });
-  str = '<div class="span8 offset2">';
-  var array = []
-  for(var key in keys) {
-    images = result[keys[key]];
+  str = '<div class="span8 offset2">';  
+  for(var i in keys) {
+    key = keys[i];
+    images = result[key];
     str += '<ul class="thumbnails">';
     str += '<li>'+key+'</li>';
     for(var i=0; i<images.length; i++) {
