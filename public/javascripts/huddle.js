@@ -111,7 +111,7 @@ function generateOutput() {
 
   // all image path for images that were not used
   deltaKeys = diffArrays([10,11,12,13,14,15,16,17,18,19], allKeys(scoreCard));
-  console.log(deltaKeys);
+//console.log(deltaKeys);
   output['n/a'] = [];
   for(var i=0; i<deltaKeys.length; i++) {
     output['n/a'].push(getImagePath(deltaKeys[i]));  
