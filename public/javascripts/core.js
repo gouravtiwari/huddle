@@ -1,5 +1,7 @@
 var generatedNumbersOnPage = [];
 
+if (!window.console) console = {log: function() {}};
+
 function getRandomImageId(startNum, endNum) {
   return Math.floor(startNum+(Math.random()*(endNum-startNum)));
 }
