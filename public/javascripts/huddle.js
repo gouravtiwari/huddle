@@ -1,4 +1,4 @@
-var roundNum = 2;
+var roundNum = 5;
 var scoreCard = {};
 
 $(document).ready(function() {
