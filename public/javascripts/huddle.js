@@ -3,7 +3,7 @@ var scoreCard = {};
 
 $(document).ready(function() {
   showRandomImages();
-
+  
   $(".themeImage").click(function() {
     if(roundNum < 10) {
       trackImageScore(this);
@@ -30,9 +30,9 @@ function showRandomImages() {
 function trackImageScore(object) {
   imageIds = getImageNumbersOnPage();
   splitArr = $(object).attr("src").split("/")
-  clickedImageName = splitArr[splitArr.length-1];
+    clickedImageName = splitArr[splitArr.length-1];
   clickedImageId = clickedImageName.split(".")[0];
-
+  
   incrementCounter(clickedImageId);
   for (var i = 0; i < imageIds.length; i++) {
     if(clickedImageId.toString() != imageIds[i].toString()) {
@@ -61,10 +61,10 @@ function decrementCounter(imageId) {
 
 function constructResultsPage() {
   var result = generateOutput();  
-  var keys = sortKeys(result);
+  var sortedKeys = getSortedKeysOfObject(result);
   str = '<div class="span8 offset2">';  
-  for(var i in keys) {
-    key = keys[i];
+  for(var i in sortedKeys) {
+    var key = sortedKeys[i];
     images = result[key];
     str += '<ul class="thumbnails">';
     str += '<li>'+key+'</li>';
@@ -79,46 +79,29 @@ function constructResultsPage() {
   return str;
 }
 
-function sortKeys(result) {
-    return allKeys(result).sort(function (a, b) {
-    if (isNaN(a) && isNaN(b)) {
-      return 0;
-    } else if (isNaN(a) && !isNaN(b)) {
-      return 1;
-    } else if (!isNaN(a) && isNaN(b)) {
-      return -1;
-    } else {
-      return b - a;
-    }
-  });
-}
-
 function generateOutput() {
   var output = {},
-  keys;
-  
-  // get the sorted output by key
-  scoreCard = sortObjectOnKeys(scoreCard);
+      keys;
   
   // all image path for images that were used
   for(var imageId in scoreCard) {
     scoreCount = scoreCard[imageId].toString();
     if(output[scoreCount] === undefined) {
       output[scoreCount] = []
-      output[scoreCount].push(getImagePath(imageId));  
+        output[scoreCount].push(getImagePath(imageId));  
     }
     else {
       output[scoreCount].push(getImagePath(imageId));  
     }
   }
-
+  
   // all image path for images that were not used
   deltaKeys = diffArrays([10,11,12,13,14,15,16,17,18,19], allKeys(scoreCard));
-//console.log(deltaKeys);
+  //console.log(deltaKeys);
   output['n/a'] = [];
   for(var i=0; i<deltaKeys.length; i++) {
     output['n/a'].push(getImagePath(deltaKeys[i]));  
   }
-
+  
   return output;
 }

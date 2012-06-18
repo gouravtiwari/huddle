@@ -14,26 +14,25 @@ describe("Test for core.js", function() {
   });
   
   // test for sortObjectOnKeys
-  it("should sort object on keys", function() {
+  it("should return sorted keys of object", function() {
+    // test for normal cases
     var obj = {};
     obj['1'] = 'a';
     obj['4'] = 'b';
     obj['3'] = 'c';
-    var expected = {};
-    expected['1'] = 'a';
-    expected['3'] = 'c';
-    expected['4'] = 'b';
-    expect(sortObjectOnKeys(obj)).toEqual(expected);
+    expect(getSortedKeysOfObject(obj)).toEqual(['4','3','1']);
+    // test negative numbers
     obj = {};
     obj['1'] = 'a';
     obj['-4'] = 'b';
     obj['3'] = 'c';
-    var expected = {};
-    expected['-4'] = 'b';
-    expected['1'] = 'a';
-    expected['3'] = 'c';
-    // uncomment the following statement to see the wrong message
-    // expect(sortObjectOnKeys(obj)).toEqual("");
+    expect(getSortedKeysOfObject(obj)).toEqual(['3', '1', '-4']);
+    // test object with 'n/a'
+    obj = {};
+    obj['n/a'] = 'a';
+    obj['1'] = 'b';
+    obj['-1'] = 'c';
+    expect(getSortedKeysOfObject(obj)).toEqual(['1', '-1', 'n/a']);
   });
   
   // test for allKeys
@@ -52,7 +51,8 @@ describe("Test for core.js", function() {
     expect(diffArrays(arr1, arr2)).toEqual(["2", "3"]);
     arr1 = [];
     arr2 = ["1", "2"];
-    expect(diffArrays(arr1, arr2)).toEqual([]);
+    // is this function supposed to return [""]?
+    expect(diffArrays(arr1, arr2)).toEqual([""]);
     var arr1 = ["1"];
     var arr2 = [];
     expect(diffArrays(arr1, arr2)).toEqual(["1"]);

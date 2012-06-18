@@ -8,7 +8,7 @@ function getRandomImageId(startNum, endNum) {
 
 function getRandomImagePath(startNum, endNum) {
   var number = getRandomImageId(startNum, endNum);
-
+  
   if(generatedNumbersOnPage.length == 0) {
     generatedNumbersOnPage.push(number);
   }
@@ -22,7 +22,7 @@ function getRandomImagePath(startNum, endNum) {
     generatedNumbersOnPage = [];
     generatedNumbersOnPage.push(number);  
   }
-
+  
   return getImagePath(number);
 }
 
@@ -39,24 +39,24 @@ function allGeneratedImageNumbers() {
   $.unique(generatedNumbers);
 }
 
-function sortObjectOnKeys(object) {
-  var sortedObject = {},
-  key, keys = [];
-
-  keys = allKeys(object)
-  keys.sort();
-  keys.reverse();
-
-  for (key = 0; key < keys.length; key++) {
-    sortedObject[keys[key]] = object[keys[key]];
-  }
-  return sortedObject;
+function getSortedKeysOfObject(obj) {
+  return allKeys(obj).sort(function (a, b) {
+    if (isNaN(a) && isNaN(b)) {
+      return 0;
+    } else if (isNaN(a) && !isNaN(b)) {
+      return 1;
+    } else if (!isNaN(a) && isNaN(b)) {
+      return -1;
+    } else {
+      return b - a;
+    }
+  });
 }
 
 function allKeys(object) {
   var key, 
-  keys = [];
-
+      keys = [];
+  
   for (key in object) {
     if (object.hasOwnProperty(key)) {
       keys.push(key);
@@ -66,14 +66,14 @@ function allKeys(object) {
 }
 
 function diffArrays(firstArr, secondArr) {
-console.log(firstArr)
-console.log(secondArr)
+  console.log(firstArr);
+  console.log(secondArr);
   var strA = ":" + firstArr.join("::") + ":";
   var strB = ":" +  secondArr.join(":|:") + ":";
-
+  
   var reg = new RegExp("(" + strB + ")","gi");
   var strDiff = strA.replace(reg,"").replace(/^:/,"").replace(/:$/,"");
   var arrDiff = strDiff.split("::");
-
+  
   return arrDiff;
 }
