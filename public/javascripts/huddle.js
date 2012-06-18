@@ -1,9 +1,12 @@
 var roundNum = 5;
 var scoreCard = {};
 
+//When any image is clicked this function is called to get two random images
 $(document).ready(function() {
   showRandomImages();
   
+
+  //Keep looping through the sets till the last round is reached.....display the results page on the last round.
   $(".themeImage").click(function() {
     if(roundNum < 10) {
       trackImageScore(this);
@@ -17,16 +20,22 @@ $(document).ready(function() {
   });
 });
 
+
+//increment the round numbers after each image click
 function incrementRoundString() {
   roundNum++;
   $("#round-start").html(roundNum);
 }
 
+
+//Show random images from the subset.
 function showRandomImages() {
   $("#firstImage").attr("src", getRandomImagePath(10, 19));
   $("#secondImage").attr("src", getRandomImagePath(10, 19));
 }
 
+
+//gets the image score for both the generatedImadeIds on page and increments or decrements their counter
 function trackImageScore(object) {
   imageIds = getImageNumbersOnPage();
   splitArr = $(object).attr("src").split("/")
@@ -41,6 +50,7 @@ function trackImageScore(object) {
   }
 }
 
+//If the scoreCard index for that object is undefined then assign it to 1, else add 1 to the existing value.
 function incrementCounter(imageId) {
   if(scoreCard[imageId] === undefined) {
     scoreCard[imageId] = 1;
@@ -50,6 +60,7 @@ function incrementCounter(imageId) {
   }
 }
 
+//If the scoreCard index for that object is undefined then assign it to 1, else subtract 1 from the existing value.
 function decrementCounter(imageId) {
   if(scoreCard[imageId] === undefined) {
     scoreCard[imageId] = -1;
@@ -59,10 +70,13 @@ function decrementCounter(imageId) {
   }
 }
 
+//This function is called when the last round image is clicked, it sorts the image object on the keys and displays the images.
 function constructResultsPage() {
   var result = generateOutput();  
   var sortedKeys = getSortedKeysOfObject(result);
   str = '<div class="span8 offset2">';  
+
+  //This loop is looping through the sorted array of numbers.
   for(var i in sortedKeys) {
     var key = sortedKeys[i];
     images = result[key];
@@ -79,6 +93,7 @@ function constructResultsPage() {
   return str;
 }
 
+//generates the output from the scoreCard object and assigns the images that have not been used to the key "n/a" 
 function generateOutput() {
   var output = {},
       keys;
