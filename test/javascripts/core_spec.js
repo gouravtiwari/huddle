@@ -2,9 +2,9 @@ describe("Test for core.js", function() {
   // test for getRandomImageId
   it("should return a random number", function() {
     // test for multiple times to make sure it is correct
-    for (var i = 0; i < 10; i++) {
-      var num = getRandomImageId(1, 5);
-      expect(num >= 1 && num <= 5).toBe(true);
+    for (var i = 0; i < 100; i++) {
+      var num = getRandomImageId(10,20);
+      expect(num >= 10 && num < 20).toBe(true);
     }
   });
   

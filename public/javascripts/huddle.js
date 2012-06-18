@@ -30,8 +30,8 @@ function incrementRoundString() {
 
 //Show random images from the subset.
 function showRandomImages() {
-  $("#firstImage").attr("src", getRandomImagePath(10, 19));
-  $("#secondImage").attr("src", getRandomImagePath(10, 19));
+  $("#firstImage").attr("src", getRandomImagePath(10, 20));
+  $("#secondImage").attr("src", getRandomImagePath(10, 20));
 }
 
 
