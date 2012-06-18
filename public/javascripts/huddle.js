@@ -60,19 +60,8 @@ function decrementCounter(imageId) {
 }
 
 function constructResultsPage() {
-  var result = generateOutput();
-  //function to sort array on keys
-  var keys = allKeys(result).sort(function (a, b) {
-    if (isNaN(a) && isNaN(b)) {
-      return 0;
-    } else if (isNaN(a) && !isNaN(b)) {
-      return 1;
-    } else if (!isNaN(a) && isNaN(b)) {
-      return -1;
-    } else {
-      return b - a;
-    }
-  });
+  var result = generateOutput();  
+  var keys = sortKeys(result);
   str = '<div class="span8 offset2">';  
   for(var i in keys) {
     key = keys[i];
@@ -88,6 +77,20 @@ function constructResultsPage() {
   }
   str += "</div>";
   return str;
+}
+
+function sortKeys(result) {
+    return allKeys(result).sort(function (a, b) {
+    if (isNaN(a) && isNaN(b)) {
+      return 0;
+    } else if (isNaN(a) && !isNaN(b)) {
+      return 1;
+    } else if (!isNaN(a) && isNaN(b)) {
+      return -1;
+    } else {
+      return b - a;
+    }
+  });
 }
 
 function generateOutput() {
